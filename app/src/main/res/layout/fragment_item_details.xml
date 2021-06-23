@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Knjiga Harry Potter"
+        android:textColor="@color/mainColor"
+        android:textSize="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="50dp"
+        android:textStyle="bold"
+
+        />
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:src="@drawable/street_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemName"
+        android:id="@+id/gpsView"
+        />
+
+    <View
+        android:layout_width="350dp"
+        android:layout_height="160dp"
+        android:background="@color/itemBackgroundColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/bacgroundView"
+        android:layout_marginTop="445dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Lent to:"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="60dp"
+        android:id="@+id/defText1"
+        app:layout_constraintTop_toBottomOf="@id/gpsView"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="Sara"
+        android:fontFamily="@font/quicksand"
+        android:textSize="25dp"
+        app:layout_constraintTop_toBottomOf="@id/gpsView"
+        app:layout_constraintLeft_toRightOf="@id/defText1"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/person"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Expected:"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="60dp"
+        android:id="@+id/defText2"
+        app:layout_constraintTop_toBottomOf="@id/defText1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="12.09.2021"
+        android:fontFamily="@font/quicksand"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/defText2"
+        app:layout_constraintTop_toBottomOf="@id/person"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/date"
+        android:layout_marginTop="10dp"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:fontFamily="@font/quicksand"
+        android:text="Phone:"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="60dp"
+        android:id="@+id/defText3"
+        app:layout_constraintTop_toBottomOf="@id/defText2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="25dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="0989220713"
+        android:fontFamily="@font/quicksand"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toRightOf="@id/defText3"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        android:textColor="@color/textColor"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/phoneNumber"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/mainColor"
+        android:src="@android:drawable/ic_menu_delete"
+        android:id="@+id/deleteButton"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="20dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

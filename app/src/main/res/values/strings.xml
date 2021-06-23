@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">WhereIsMy</string>
+    <string name="header">Where is my</string>
+    <string name="add_button">Lent new stuff</string>
+    <string name="view_button">View my stuff</string>
+    <string name="tv_add">Add location</string>
+    <string name="tv_stuff">Stuff:</string>
+    <string name="tv_lent">Lent to:</string>
+    <string name="tv_phone">Phone:</string>
+    <string name="tv_date">Expected:</string>
+</resources>
