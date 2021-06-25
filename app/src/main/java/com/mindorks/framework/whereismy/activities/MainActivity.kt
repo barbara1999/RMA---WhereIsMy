@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         mainBinding.addButton.setOnClickListener{ openAddActivity()}
         mainBinding.viewButton.setOnClickListener{openItemList()}
+        mainBinding.viewMapButton.setOnClickListener{openMapActivity()}
         setContentView(mainBinding.root)
     }
 
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun openItemList(){
         val addNewIntent = Intent(this, ItemListActivity::class.java)
+        startActivity(addNewIntent)
+    }
+
+    private fun openMapActivity(){
+        val addNewIntent=Intent(this,MapActivity::class.java)
         startActivity(addNewIntent)
     }
 }
