@@ -138,7 +138,7 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
             Toast.makeText(this,R.string.toasMessage,Toast.LENGTH_SHORT).show()
         }
         else {
-            val item= Item(itemName,person,date, phoneNumber.toInt() ,lon,lat,address,0)
+            val item= Item(itemName,person,date,phoneNumber  ,lon,lat,address,0)
             itemsRepository.insert(item)
             finish()
         }

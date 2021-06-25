@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.mindorks.framework.whereismy.model.Item
 
-@Database(entities = [Item::class],version = 3)
+@Database(entities = [Item::class],version = 4)
 abstract class ItemsDatabase : RoomDatabase(){
     abstract fun itemDao():ItemDao
     companion object{
