@@ -48,10 +48,18 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+
+    //recycler view
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
     //image
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //google maps
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
 
     //room
     implementation "androidx.room:room-runtime:$roomVersion"

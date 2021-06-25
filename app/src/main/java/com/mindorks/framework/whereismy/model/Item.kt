@@ -11,8 +11,9 @@ data class Item(
         @ColumnInfo(name="personName")val personName:String,
         @ColumnInfo(name="date")val date:String,
         @ColumnInfo(name="phoneNumber")val phoneNumber:Int,
-        @ColumnInfo(name="longitude")val longitude:Int,
-        @ColumnInfo(name="latitude")val latitude:Int,
+        @ColumnInfo(name="longitude")val longitude:Double,
+        @ColumnInfo(name="latitude")val latitude:Double,
+        @ColumnInfo(name="address")val address:String,
         @PrimaryKey(autoGenerate = true)val id:Int
 ):Serializable
 

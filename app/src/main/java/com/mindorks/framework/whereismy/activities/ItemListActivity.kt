@@ -3,6 +3,7 @@ package com.mindorks.framework.whereismy.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.maps.SupportMapFragment
 import com.mindorks.framework.whereismy.R
 import com.mindorks.framework.whereismy.databinding.ActivityItemListBinding
 import com.mindorks.framework.whereismy.fragments.ItemDetailsFragment
@@ -27,6 +28,7 @@ class ItemListActivity :AppCompatActivity(),OnListItemClickListener, ItemDetails
             createNewItem()
         }
         setContentView(itemListBinding.root)
+
 
         if(savedInstanceState==null){
             supportFragmentManager.beginTransaction()

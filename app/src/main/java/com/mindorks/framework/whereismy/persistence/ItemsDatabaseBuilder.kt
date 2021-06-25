@@ -22,6 +22,7 @@ object ItemsDatabaseBuilder {
                 AppWhereIsMy.application,ItemsDatabase::class.java,ItemsDatabase.NAME
         )
                 .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
     }
 }

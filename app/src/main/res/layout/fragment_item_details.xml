@@ -2,16 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/quicksand"
         android:text="Knjiga Harry Potter"
         android:textColor="@color/mainColor"
@@ -20,20 +18,23 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="60dp"
         android:textStyle="bold"
 
         />
 
-    <ImageView
+    <fragment
         android:layout_width="350dp"
-        android:layout_height="350dp"
-        android:src="@drawable/street_image"
+        android:layout_height="430dp"
+        android:id="@+id/gpsView"
+        tools:context=".ItemDetailsFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemName"
-        android:id="@+id/gpsView"
+        app:layout_constraintTop_toBottomOf="@+id/itemName"
+        android:layout_marginTop="10dp"
         />
+
 
     <View
         android:layout_width="350dp"
@@ -45,7 +46,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:id="@+id/bacgroundView"
-        android:layout_marginTop="445dp"
+        android:layout_marginTop="525dp"
 
         />
 
@@ -60,7 +61,7 @@
         app:layout_constraintTop_toBottomOf="@id/gpsView"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         />
 
     <TextView
@@ -74,7 +75,7 @@
         android:textColor="@color/textColor"
         android:layout_marginLeft="10dp"
         android:id="@+id/person"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         />
 
 
