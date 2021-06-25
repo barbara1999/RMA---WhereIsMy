@@ -56,7 +56,7 @@
         android:fontFamily="@font/quicksand"
         android:text="Lent to:"
         android:textColor="@color/textColor"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="40dp"
         android:id="@+id/defText1"
         app:layout_constraintTop_toBottomOf="@id/gpsView"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -85,7 +85,7 @@
         android:fontFamily="@font/quicksand"
         android:text="Expected:"
         android:textColor="@color/textColor"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="40dp"
         android:id="@+id/defText2"
         app:layout_constraintTop_toBottomOf="@id/defText1"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -109,13 +109,15 @@
 
         />
 
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:fontFamily="@font/quicksand"
         android:text="Phone:"
         android:textColor="@color/textColor"
-        android:layout_marginLeft="60dp"
+        android:layout_marginLeft="40dp"
         android:id="@+id/defText3"
         app:layout_constraintTop_toBottomOf="@id/defText2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -137,6 +139,26 @@
         android:id="@+id/phoneNumber"
         />
 
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="45dp"
+        android:id="@+id/callButtom"
+        app:layout_constraintLeft_toRightOf="@id/phoneNumber"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        android:text="call"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="15sp"
+        android:backgroundTint="@null"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:textColor="@color/mainColor"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/mainColor"
+        android:fontFamily="@font/quicksand"
+        />
+
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -145,6 +167,19 @@
         android:id="@+id/deleteButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="20dp"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="#FF7373"
+        android:src="@drawable/arrow"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginBottom="20dp"
         />

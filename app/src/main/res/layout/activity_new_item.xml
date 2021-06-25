@@ -36,12 +36,15 @@
 
     <Button
         android:id="@+id/trackLocationAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         app:layout_constraintTop_toBottomOf="@id/logo_list"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="30dp"
+        android:layout_margin="25dp"
         android:text="get location"
+        android:backgroundTint="@color/mainColor"
+        android:fontFamily="@font/quicksand"
+        android:textSize="15sp"
 
         />
 
@@ -71,19 +74,19 @@
             android:id="@+id/et_newItem_name_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="@font/quicksand"
             android:hint="@string/tv_stuff"
             android:textColor="@color/mainColor"
-            android:fontFamily="@font/quicksand"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_newItem_person_input"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="170dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/til_newItem_name_input"
         android:layout_margin="20dp"
         >
@@ -102,10 +105,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_newItem_phoneNumber_input"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="170dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_newItem_name_input"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/til_newItem_person_input"
         android:layout_margin="20dp"
         >
 
@@ -134,7 +138,7 @@
         android:textColor="@color/white"
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/til_newItem_person_input"
+        app:layout_constraintTop_toBottomOf="@id/til_newItem_phoneNumber_input"
         />
 
     <TextView

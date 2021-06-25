@@ -1,7 +1,10 @@
 package com.mindorks.framework.whereismy.fragments
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +17,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.mindorks.framework.whereismy.R
+import com.mindorks.framework.whereismy.activities.ItemListActivity
+import com.mindorks.framework.whereismy.activities.MainActivity
 import com.mindorks.framework.whereismy.databinding.FragmentItemDetailsBinding
 import com.mindorks.framework.whereismy.listeners.ItemDetailsFragmentOnClickListener
 import com.mindorks.framework.whereismy.model.Item
@@ -26,6 +31,8 @@ class ItemDetailsFragment(private val item:Item) :Fragment(), OnMapReadyCallback
     private lateinit var itemDetailsFragmentClickListener: ItemDetailsFragmentOnClickListener
 
     private lateinit var map : GoogleMap
+
+    internal var number:String?=""
 
     private val itemsRepository: ItemDao by  lazy {
         ItemsDatabaseBuilder.getInstance().itemDao()
@@ -57,14 +64,33 @@ class ItemDetailsFragment(private val item:Item) :Fragment(), OnMapReadyCallback
             itemDetailsFragmentClickListener.onDeleteButtonClick()
         }
 
+        itemDetailsBinding.callButtom.setOnClickListener{
+            number=itemDetailsBinding.phoneNumber.text.toString().trim()
+
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+Uri.encode(number)))
+            startActivity(intent)
+        }
+
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.gpsView) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        itemDetailsBinding.backButton.setOnClickListener{
+            goBack()
+        }
 
 
         return itemDetailsBinding.root
 
     }
+
+    private fun goBack() {
+        requireActivity().run {
+            startActivity(Intent(this, ItemListActivity::class.java))
+            finish()
+        }
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -86,6 +112,8 @@ class ItemDetailsFragment(private val item:Item) :Fragment(), OnMapReadyCallback
             return fragment
         }
     }
+
+
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap

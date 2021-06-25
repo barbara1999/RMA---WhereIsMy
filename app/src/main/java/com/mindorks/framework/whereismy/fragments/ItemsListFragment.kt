@@ -1,12 +1,14 @@
 package com.mindorks.framework.whereismy.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mindorks.framework.whereismy.activities.MainActivity
 import com.mindorks.framework.whereismy.adapters.ItemAdapter
 import com.mindorks.framework.whereismy.databinding.FragmentItemListBinding
 import com.mindorks.framework.whereismy.listeners.OnListItemClickListener
@@ -17,6 +19,7 @@ class ItemsListFragment : Fragment() {
 
     private lateinit var itemListBinding: FragmentItemListBinding
     private lateinit var onListItemClickListener: OnListItemClickListener
+
 
   private val itemsRepostiory: ItemDao by  lazy {
       ItemsDatabaseBuilder.getInstance().itemDao()
@@ -32,7 +35,18 @@ class ItemsListFragment : Fragment() {
                 container,
                 false)
         setupRecyclerView()
+
+        itemListBinding.backButton.setOnClickListener{
+            goBack()
+        }
         return itemListBinding.root
+    }
+
+    private fun goBack(){
+        requireActivity().run{
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -63,5 +77,7 @@ class ItemsListFragment : Fragment() {
         fun create():ItemsListFragment{
             return ItemsListFragment()
         }
+
+
     }
 }

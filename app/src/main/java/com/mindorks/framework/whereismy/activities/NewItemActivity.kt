@@ -23,6 +23,7 @@ import com.mindorks.framework.whereismy.hasPermissionCompact
 import com.mindorks.framework.whereismy.requestPermissionCompact
 import java.io.IOException
 import java.lang.StringBuilder
+import java.text.SimpleDateFormat
 
 class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,TimePickerDialog.OnTimeSetListener{
 
@@ -107,7 +108,9 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         }
         binding.buttonDate.setOnClickListener{
             getDateTimeCalendar()
-            DatePickerDialog(this,this,year,month,day).show()
+
+            val datePicker= DatePickerDialog(this,this,year,month,day).show()
+
         }
 
         binding.trackLocationAction.setOnClickListener{ trackLocation()}
@@ -129,14 +132,21 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         val person=binding.etNewItemPersonInput.text.toString()
         val date="$savedDay/$savedMonth/$savedYear"
         val phoneNumber=binding.etNewItemPhoneNumberInput.text.toString()
-        val item= Item(itemName,person,date, phoneNumber.toInt() ,lon,lat,address,0)
-        itemsRepository.insert(item)
-        finish()
+
+
+        if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() || lon==0.0 || lat==0.0){
+            Toast.makeText(this,R.string.toasMessage,Toast.LENGTH_SHORT).show()
+        }
+        else {
+            val item= Item(itemName,person,date, phoneNumber.toInt() ,lon,lat,address,0)
+            itemsRepository.insert(item)
+            finish()
+        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         savedDay=dayOfMonth
-        savedMonth=month
+        savedMonth=month+1
         savedYear=year
         getDateTimeCalendar()
         TimePickerDialog(this,this,hour,minute,true).show()
