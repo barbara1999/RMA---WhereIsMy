@@ -16,16 +16,24 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.*
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
-import com.mindorks.framework.whereismy.R
-import com.mindorks.framework.whereismy.hasPermissionCompact
-import com.mindorks.framework.whereismy.requestPermissionCompact
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.NotificationManagerCompat.from
+import com.mindorks.framework.whereismy.*
+import com.mindorks.framework.whereismy.adapters.NotificationUtils
 import java.io.IOException
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.Date.from
+
 
 class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,TimePickerDialog.OnTimeSetListener{
+
+    private var mNotified = false
 
     var day=0
     var month=0
@@ -43,6 +51,7 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
     var lon =0.0
     var address=""
 
+
     private val locationPermission = Manifest.permission.ACCESS_FINE_LOCATION
     private val locationRequestCode=10
     private lateinit var locationManager : LocationManager
@@ -51,6 +60,28 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
 
     private val itemsRepository: ItemDao by lazy{
         ItemsDatabaseBuilder.getInstance().itemDao()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        //test
+
+
+        binding= ActivityNewItemBinding.inflate(layoutInflater)
+        binding.saveItemBtn.setOnClickListener{
+            saveItem()
+        }
+        binding.buttonDate.setOnClickListener{
+            getDateTimeCalendar()
+
+            DatePickerDialog(this,this,year,month,day).show()
+
+        }
+
+        binding.trackLocationAction.setOnClickListener{ trackLocation()}
+        locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        setContentView(binding.root)
     }
 
     private val locationListener =  object :LocationListener{
@@ -99,25 +130,6 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding= ActivityNewItemBinding.inflate(layoutInflater)
-        binding.saveItemBtn.setOnClickListener{
-            saveItem()
-        }
-        binding.buttonDate.setOnClickListener{
-            getDateTimeCalendar()
-
-            val datePicker= DatePickerDialog(this,this,year,month,day).show()
-
-        }
-
-        binding.trackLocationAction.setOnClickListener{ trackLocation()}
-        locationManager=getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        setContentView(binding.root)
-    }
-
     private fun getDateTimeCalendar(){
         val cal:Calendar= Calendar.getInstance()
         day=cal.get(Calendar.DAY_OF_MONTH)
@@ -127,19 +139,52 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         minute=cal.get(Calendar.MINUTE)
     }
 
+    private fun cacluateMilis(minute: Int,hour:Int,day:Int,month:Int,year:Int ): Long {
+        return (minute*60+hour*60*60+day*24*60*60+month*30*24*60*60+year*365*30*24*60*60).toLong()
+
+    }
+
+
     private fun saveItem(){
         val itemName=binding.etNewItemNameInput.text.toString()
         val person=binding.etNewItemPersonInput.text.toString()
         val date="$savedDay/$savedMonth/$savedYear"
         val phoneNumber=binding.etNewItemPhoneNumberInput.text.toString()
+        val timeFuture=cacluateMilis(savedMinute,savedHour,savedDay,savedMonth,savedYear)
+
+        Log.e("message","$timeFuture")
+
+        val calendar : Calendar= Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY,savedHour)
+        calendar.set(Calendar.MINUTE,savedMinute)
+        calendar.set(Calendar.YEAR,savedYear)
+        calendar.set(Calendar.MONTH,savedMonth)
+        calendar.set(Calendar.DAY_OF_MONTH,savedDay)
+        calendar.set(Calendar.SECOND,0)
+        calendar.set(Calendar.MILLISECOND,0)
+
+        Log.e("calendar","$calendar")
 
 
-        if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() || lon==0.0 || lat==0.0){
+
+        if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() ){
             Toast.makeText(this,R.string.toasMessage,Toast.LENGTH_SHORT).show()
+
         }
         else {
             val item= Item(itemName,person,date,phoneNumber  ,lon,lat,address,0)
             itemsRepository.insert(item)
+
+            val time=timeFuture*1000
+
+            if (!mNotified) {
+                NotificationUtils().setNotification(calendar.getTimeInMillis(), itemName, this)
+            }
+
+            val funn=calendar.getTimeInMillis()
+            Log.e("hhh","$funn")
+
+
             finish()
         }
     }
