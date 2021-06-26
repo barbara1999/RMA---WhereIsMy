@@ -65,8 +65,6 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //test
-
 
         binding= ActivityNewItemBinding.inflate(layoutInflater)
         binding.saveItemBtn.setOnClickListener{
@@ -139,35 +137,24 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         minute=cal.get(Calendar.MINUTE)
     }
 
-    private fun cacluateMilis(minute: Int,hour:Int,day:Int,month:Int,year:Int ): Long {
-        return (minute*60+hour*60*60+day*24*60*60+month*30*24*60*60+year*365*30*24*60*60).toLong()
-
-    }
-
-
     private fun saveItem(){
         val itemName=binding.etNewItemNameInput.text.toString()
         val person=binding.etNewItemPersonInput.text.toString()
         val date="$savedDay/$savedMonth/$savedYear"
         val phoneNumber=binding.etNewItemPhoneNumberInput.text.toString()
-        val timeFuture=cacluateMilis(savedMinute,savedHour,savedDay,savedMonth,savedYear)
 
-        Log.e("message","$timeFuture")
 
         val calendar : Calendar= Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY,savedHour)
         calendar.set(Calendar.MINUTE,savedMinute)
         calendar.set(Calendar.YEAR,savedYear)
-        calendar.set(Calendar.MONTH,savedMonth)
+        calendar.set(Calendar.MONTH,savedMonth-1)
         calendar.set(Calendar.DAY_OF_MONTH,savedDay)
         calendar.set(Calendar.SECOND,0)
         calendar.set(Calendar.MILLISECOND,0)
 
-        Log.e("calendar","$calendar")
 
-
-
-        if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() ){
+        if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() || lat==0.0 || lon==0.0){
             Toast.makeText(this,R.string.toasMessage,Toast.LENGTH_SHORT).show()
 
         }
@@ -175,15 +162,9 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
             val item= Item(itemName,person,date,phoneNumber  ,lon,lat,address,0)
             itemsRepository.insert(item)
 
-            val time=timeFuture*1000
-
             if (!mNotified) {
                 NotificationUtils().setNotification(calendar.getTimeInMillis(), itemName, this)
             }
-
-            val funn=calendar.getTimeInMillis()
-            Log.e("hhh","$funn")
-
 
             finish()
         }
@@ -244,8 +225,6 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         }catch (e:SecurityException){
             Toast.makeText(this,"Permission not granted",Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
     override fun onPause() {
