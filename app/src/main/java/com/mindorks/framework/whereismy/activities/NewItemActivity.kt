@@ -137,33 +137,43 @@ class NewItemActivity : AppCompatActivity(),DatePickerDialog.OnDateSetListener ,
         minute=cal.get(Calendar.MINUTE)
     }
 
+    private fun timeInMillis(year:Int,month:Int,day:Int,hour:Int,minute:Int): Long {
+        val calendar : Calendar= Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY,hour)
+        calendar.set(Calendar.MINUTE,minute)
+        calendar.set(Calendar.YEAR,year)
+        calendar.set(Calendar.MONTH,month)
+        calendar.set(Calendar.DAY_OF_MONTH,day)
+        calendar.set(Calendar.SECOND,0)
+        calendar.set(Calendar.MILLISECOND,0)
+
+        return calendar.getTimeInMillis()
+    }
+
     private fun saveItem(){
         val itemName=binding.etNewItemNameInput.text.toString()
         val person=binding.etNewItemPersonInput.text.toString()
         val date="$savedDay/$savedMonth/$savedYear"
         val phoneNumber=binding.etNewItemPhoneNumberInput.text.toString()
 
-
-        val calendar : Calendar= Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY,savedHour)
-        calendar.set(Calendar.MINUTE,savedMinute)
-        calendar.set(Calendar.YEAR,savedYear)
-        calendar.set(Calendar.MONTH,savedMonth-1)
-        calendar.set(Calendar.DAY_OF_MONTH,savedDay)
-        calendar.set(Calendar.SECOND,0)
-        calendar.set(Calendar.MILLISECOND,0)
+        val futureTime=timeInMillis(savedYear,savedMonth-1,savedDay,savedHour,savedMinute)
+        val presentTime=timeInMillis(year,month,day,hour,minute)
 
 
         if(itemName.isEmpty() || person.isEmpty() || date=="0/0/0" || phoneNumber.isEmpty() || lat==0.0 || lon==0.0){
             Toast.makeText(this,R.string.toasMessage,Toast.LENGTH_SHORT).show()
-
         }
+        else if(futureTime<presentTime){
+            Toast.makeText(this,"Please enter date in future",Toast.LENGTH_SHORT).show()
+        }
+
+
         else {
             val item= Item(itemName,person,date,phoneNumber  ,lon,lat,address,0)
             itemsRepository.insert(item)
 
             if (!mNotified) {
-                NotificationUtils().setNotification(calendar.getTimeInMillis(), itemName, this)
+                NotificationUtils().setNotification(futureTime, itemName, this)
             }
 
             finish()
